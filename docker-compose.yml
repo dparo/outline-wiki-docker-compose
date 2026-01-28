@@ -26,10 +26,10 @@ services:
     restart: always
   outline:
     image: outlinewiki/outline:latest
-    # command: sh -c "yarn sequelize:migrate --env production-ssl-disabled && yarn start"
+    expose:
+      - "3000"
     environment:
       - DATABASE_URL=postgres://user:pass@postgres:5432/outline
-      - DATABASE_URL_TEST=postgres://user:pass@postgres:5432/outline-test
       - REDIS_URL=redis://redis:6379
     env_file:
       - ./env.outline
