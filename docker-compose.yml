@@ -38,6 +38,7 @@ services:
       - postgres
       - redis
       - minio
+      - dex
   redis:
     image: redis
     expose:
@@ -61,3 +62,17 @@ services:
     restart: always
     depends_on:
       - outline
+  dex:
+    image: ghcr.io/dexidp/dex:v2.44.0
+    expose:
+      - "5556"
+    volumes:
+      - ./conf/dex/config.yaml:/etc/dex/config.yaml
+    command: ["dex", "serve", "/etc/dex/config.yaml"]
+  # etcd:
+  #   image: ghcr.io/etcd-io/etcd:3.6.7
+  #   expose:
+  #     - "5556"
+  #   volumes:
+  #     - ./conf/dex/config.yaml:/etc/dex/config.yaml
+  #   command: ["dex", "serve", "/etc/dex/config.yaml"]
